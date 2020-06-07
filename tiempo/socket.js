@@ -1,15 +1,16 @@
 var socket = io.connect('http://localhost:3000', { 'forceNew': true });
+
 socket.on('recibe', function(data) {
   console.log(data);
- 
+  mov(data.articulacion, data.grados, false)
 })
 
-function addMessage(e) {
-  /*var message = {
-    author: document.getElementById('username').value,
-    text: document.getElementById('texto').value
-  };*/
-  socket.emit('mensage:', 'Hola');
+function enviarMensaje(art, gra) {
+  var movimientos = {
+    articulacion: art,
+    grados: gra
+  };
+  socket.emit('envio', movimientos);
  
   return false;
 }
