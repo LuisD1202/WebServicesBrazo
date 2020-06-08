@@ -13,24 +13,27 @@ const app = express();
   app.use(bodyParser.json());
   app.use(route)
 
-
+//Crea el servidor e indica el puerto
 
 const server= app.listen(app.get('port'), ()=>{
      
    console.log('Servidor conectado en puerto 3000')
 });
 
+//Inicia los sockets y le indica el servidor.
+
 const io =socket(server);
 
+// Escucha el cliente que se conecta
 io.on('connect',(socket)=>{
 
   console.log('cliente conectado',socket.id);
   
 
- socket.on('envio',(msj)=>{
+ socket.on('clienteEnvio',(msj)=>{
    
  console.log(msj);
-  io.emit('recibe',msj);
+  io.emit('servidorEnvio',msj);
    
   });
   

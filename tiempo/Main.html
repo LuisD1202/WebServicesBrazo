@@ -1,0 +1,22 @@
+<html>
+<head>
+    <title> Transparent Login Form Design </title>
+    <link rel="stylesheet" type="text/css" href="style.css">   
+</head>
+    <body>
+    <div class="login-box">
+    <img src="avatar.png" class="avatar">
+        <h1>Brazo Robot</h1>
+            <p>Cliente</p>
+            <input type="text" name="cliente" id= "Nombre" placeholder="Ingresar el nombre cliente">
+            <button onclick="myFunction()" type="submit">Acceder</button>
+    </div>
+    
+        <script>
+            function myFunction() {
+              
+              location.href = "index.html?cliente="+document.getElementById("Nombre").value;
+            }
+        </script>
+    </body>
+</html>

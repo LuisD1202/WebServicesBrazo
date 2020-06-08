@@ -7,6 +7,15 @@ var pinza1 = new Image();
 var pinza2 = new Image();
 var g1,g2,g3,g4,gP;
 
+
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+    results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
+
 function movAction(msjBody) {
   var url = 'http://localhost:3000/grados';
  
@@ -18,11 +27,14 @@ function movAction(msjBody) {
     }
   }).then(res => res.json())
   .catch(error => console.error('Error:', error))
-  .then(response => console.log('Success:', response));
+  .then(response => {console.log('Success:', response);
+  					enviarMensaje(msjBody);});
 }
 
 
-function mov(art, gr,server){
+function mov(art, gr,server, nomcliente){
+
+	document.getElementById("v" + art).innerHTML = gr;
 
 	switch(art){
 
@@ -50,16 +62,14 @@ function mov(art, gr,server){
   if(server){
 
     var movimientos = {
-      cliente: "Oscar",
+      cliente: nomcliente,
       articulacion: art,
       grados: gr
     };
     
-    movAction(movimientos);
-    enviarMensaje(art, gr);
+    movAction(movimientos); // Envía a la API
   }else{
     document.getElementById(art).value=gr;
-    
   }
 
 }
@@ -133,3 +143,4 @@ function draw() {
 }
 
 init();
+
